@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:insta/responsive/mobile_screen_layout.dart';
 import 'package:insta/responsive/responsive_layout.dart';
 import 'package:insta/responsive/web_screen_layout.dart';
+import 'package:insta/screens/login_screen.dart';
 import 'package:insta/utils/colors.dart';
 import '../config.dart';
 
@@ -34,10 +35,11 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Insta',
       theme: ThemeData.dark()
           .copyWith(scaffoldBackgroundColor: mobileBackgroundColor),
-      home: const ResponsiveLayout(
-        mobileScreenLayout: MobileScreenLayout(),
-        webScreenLayout: WebScreenLayout(),
-      ),
+      // home: const ResponsiveLayout(
+      //   mobileScreenLayout: MobileScreenLayout(),
+      //   webScreenLayout: WebScreenLayout(),
+      // ),
+      home: LoginScreen(),
     );
   }
 }

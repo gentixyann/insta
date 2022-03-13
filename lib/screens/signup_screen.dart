@@ -3,16 +3,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:insta/utils/colors.dart';
 import 'package:insta/widgets/text_field_input.dart';
 
-class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class SignupScreen extends StatefulWidget {
+  SignupScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _bioController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   bool _isLoading = false;
 
   @override
@@ -21,6 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _bioController.dispose();
+    _usernameController.dispose();
   }
 
   @override
@@ -44,6 +48,11 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 64),
               TextFieldInput(
+                  textEditingController: _usernameController,
+                  hintText: 'Enter your username',
+                  textInputType: TextInputType.text),
+              const SizedBox(height: 24),
+              TextFieldInput(
                   textEditingController: _emailController,
                   hintText: 'Enter your email',
                   textInputType: TextInputType.emailAddress),
@@ -54,6 +63,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 textInputType: TextInputType.visiblePassword,
                 isPass: true,
               ),
+              const SizedBox(height: 24),
+              TextFieldInput(
+                  textEditingController: _bioController,
+                  hintText: 'Enter your bio',
+                  textInputType: TextInputType.text),
               const SizedBox(height: 24),
               InkWell(
                 child: Container(

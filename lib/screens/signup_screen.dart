@@ -12,7 +12,7 @@ import 'package:insta/widgets/text_field_input.dart';
 import '../resources/auth_methods.dart';
 
 class SignupScreen extends StatefulWidget {
-  SignupScreen({Key? key}) : super(key: key);
+  const SignupScreen({Key? key}) : super(key: key);
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
@@ -54,19 +54,20 @@ class _SignupScreenState extends State<SignupScreen> {
       setState(() {
         _isLoading = false;
       });
-    // navigate to the home screen
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const ResponsiveLayout(
-        mobileScreenLayout: MobileScreenLayout(),
-        webScreenLayout: WebScreenLayout(),
-      ),)
-    );
-  } else {
-    setState(() {
+      // navigate to the home screen
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => const ResponsiveLayout(
+          mobileScreenLayout: MobileScreenLayout(),
+          webScreenLayout: WebScreenLayout(),
+        ),
+      ));
+    } else {
+      setState(() {
         _isLoading = false;
       });
       // show the error
       showSnackBar(context, res);
+    }
   }
 
   @override

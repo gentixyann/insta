@@ -34,6 +34,8 @@ class AuthMethods {
           uid: cred.user!.uid,
           email: email,
           bio: bio,
+          followers: [],
+          following: [],
         );
 
         // adding user in our database

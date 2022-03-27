@@ -71,6 +71,14 @@ class _SignupScreenState extends State<SignupScreen> {
     }
   }
 
+  selectImage() async {
+    Uint8List im = await pickImage(ImageSource.gallery);
+    // set state because we need to display the image we selected on the circle avatar
+    setState(() {
+      _image = im;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,7 +110,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       bottom: -10,
                       left: 80,
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: selectImage,
                         icon: const Icon(Icons.add_a_photo),
                       ))
                 ],
@@ -132,7 +140,9 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(height: 24),
               InkWell(
                 child: Container(
-                  child: const Text('Login'),
+                  child: !_isLoading
+                      ? const Text('Sign up')
+                      : const CircularProgressIndicator(color: primaryColor),
                   width: double.infinity,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 12),
@@ -145,6 +155,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     color: blueColor,
                   ),
                 ),
+                onTap: signUpUser,
               ),
               const SizedBox(height: 12),
               Flexible(
@@ -157,7 +168,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    child: const Text("Don't have an account?"),
+                    child: const Text("Already have an account?"),
                     padding: const EdgeInsets.symmetric(vertical: 8),
                   ),
                   GestureDetector(

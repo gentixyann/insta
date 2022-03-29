@@ -38,6 +38,7 @@ class AuthMethods {
           password: password,
         );
 
+        // get photoUrl from Firebase Cloud Storage
         String photoUrl = await StorageMethods()
             .uploadImageToStorage('profilePics', file, false);
 
@@ -63,6 +64,7 @@ class AuthMethods {
       }
     } catch (err) {
       res = err.toString();
+      print(res);
     }
     return res;
   }

@@ -105,7 +105,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ? CircleAvatar(
                           radius: 64,
                           backgroundImage: MemoryImage(_image!),
-                          backgroundColor: Colors.red,
+                          backgroundColor: Color.fromARGB(255, 255, 255, 254),
                         )
                       : const CircleAvatar(
                           radius: 64,

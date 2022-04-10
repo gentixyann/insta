@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:insta/utils/dimensions.dart';
+import 'package:insta/utils/global_variable.dart';
 
 class ResponsiveLayout extends StatelessWidget {
   final Widget mobileScreenLayout;

@@ -12,8 +12,9 @@ import 'package:insta/screens/signup_screen.dart';
 import 'package:insta/utils/colors.dart';
 import '../config.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   if (kIsWeb) {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
                   mobileScreenLayout: MobileScreenLayout(),
                   webScreenLayout: WebScreenLayout(),
                 );
+                // return LoginScreen();
               } else if (snapshot.hasError) {
                 return Center(
                   child: Text('${snapshot.error}'),

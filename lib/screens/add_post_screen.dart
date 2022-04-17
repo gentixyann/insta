@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:insta/providers/user_provider.dart';
+import 'package:insta/resources/firestore_methods.dart';
 import 'package:insta/utils/colors.dart';
 import 'package:insta/utils/utils.dart';
 import 'package:provider/provider.dart';
@@ -60,8 +61,41 @@ class _AddPostScreenState extends State<AddPostScreen> {
         });
   }
 
-  void postImage() async {
-    print('hoge');
+  void postImage(String uid, String username, String profImage) async {
+    setState(() {
+      isLoading = true;
+    });
+    // start the loading
+    try {
+      // upload to storage and db
+      String res = await FireStoreMethods().uploadPost(
+        _descriptionController.text,
+        _file!,
+        uid,
+        username,
+        profImage,
+      );
+      if (res == "success") {
+        setState(() {
+          isLoading = false;
+        });
+        showSnackBar(
+          context,
+          'Posted!',
+        );
+        clearImage();
+      } else {
+        showSnackBar(context, res);
+      }
+    } catch (err) {
+      setState(() {
+        isLoading = false;
+      });
+      showSnackBar(
+        context,
+        err.toString(),
+      );
+    }
   }
 
   void clearImage() {
@@ -101,10 +135,10 @@ class _AddPostScreenState extends State<AddPostScreen> {
               actions: <Widget>[
                 TextButton(
                   onPressed: () => postImage(
-                      // userProvider.getUser.uid,
-                      // userProvider.getUser.username,
-                      // userProvider.getUser.photoUrl,
-                      ),
+                    userProvider.getUser.uid,
+                    userProvider.getUser.username,
+                    userProvider.getUser.photoUrl,
+                  ),
                   child: const Text(
                     "Post",
                     style: TextStyle(

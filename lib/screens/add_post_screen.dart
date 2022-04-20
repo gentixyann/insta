@@ -76,6 +76,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
         profImage,
       );
       if (res == "success") {
+        // end the loading
         setState(() {
           isLoading = false;
         });

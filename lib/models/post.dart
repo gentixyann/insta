@@ -21,6 +21,7 @@ class Post {
     required this.profImage,
   });
 
+// Firebaseから取得するときsnapからmapにする
   static Post fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
 
@@ -35,6 +36,7 @@ class Post {
         profImage: snapshot['profImage']);
   }
 
+// postするときにjsonにする
   Map<String, dynamic> toJson() => {
         "description": description,
         "uid": uid,

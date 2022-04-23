@@ -6,6 +6,7 @@ import 'package:insta/resources/firestore_methods.dart';
 import 'package:insta/utils/colors.dart';
 import 'package:insta/utils/global_variable.dart';
 import 'package:insta/utils/utils.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class PostCard extends StatefulWidget {
@@ -152,6 +153,130 @@ class _PostCardState extends State<PostCard> {
               ],
             ),
           ),
+          // IMAGE SECTION OF THE POST
+          GestureDetector(
+            onDoubleTap: () {
+              FireStoreMethods().likePost(
+                widget.snap['postId'].toString(),
+                user.uid,
+                widget.snap['likes'],
+              );
+              setState(() {
+                isLikeAnimating = true;
+              });
+            },
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  width: double.infinity,
+                  child: Image.network(
+                    widget.snap['postUrl'].toString(),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                AnimatedOpacity(
+                  duration: const Duration(milliseconds: 200),
+                  opacity: isLikeAnimating ? 1 : 0,
+                  child: Container(),
+                ),
+              ],
+            ),
+          ),
+          // LIKE, COMMENT SECTION OF THE POST
+          Row(
+            children: <Widget>[
+              Container(),
+              IconButton(
+                icon: const Icon(
+                  Icons.comment_outlined,
+                ),
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => Container(),
+                  ),
+                ),
+              ),
+              IconButton(
+                  icon: const Icon(
+                    Icons.send,
+                  ),
+                  onPressed: () {}),
+              Expanded(
+                  child: Align(
+                alignment: Alignment.bottomRight,
+                child: IconButton(
+                    icon: const Icon(Icons.bookmark_border), onPressed: () {}),
+              ))
+            ],
+          ),
+          //DESCRIPTION AND NUMBER OF COMMENTS
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                DefaultTextStyle(
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle2!
+                        .copyWith(fontWeight: FontWeight.w800),
+                    child: Text(
+                      '${widget.snap['likes'].length} likes',
+                      style: Theme.of(context).textTheme.bodyText2,
+                    )),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.only(
+                    top: 8,
+                  ),
+                  child: RichText(
+                    text: TextSpan(
+                      style: const TextStyle(color: primaryColor),
+                      children: [
+                        TextSpan(
+                          text: widget.snap['username'].toString(),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: ' ${widget.snap['description']}',
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                InkWell(
+                  child: Container(
+                    child: Text(
+                      'View all $commentLen comments',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: secondaryColor,
+                      ),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                  ),
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => Container(),
+                  )),
+                ),
+                Container(
+                  child: Text(
+                    DateFormat.yMMMd()
+                        .format(widget.snap['datePublished'].toDate()),
+                    style: const TextStyle(
+                      color: secondaryColor,
+                    ),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                )
+              ],
+            ),
+          )
         ],
       ),
     );

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:insta/providers/user_provider.dart';
 import 'package:insta/models/user.dart' as model;
 import 'package:insta/resources/firestore_methods.dart';
+import 'package:insta/screens/comments_screen.dart';
 import 'package:insta/utils/colors.dart';
 import 'package:insta/utils/global_variable.dart';
 import 'package:insta/utils/utils.dart';
@@ -228,7 +229,9 @@ class _PostCardState extends State<PostCard> {
                 ),
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => Container(),
+                    builder: (context) => CommentsScreen(
+                      postId: widget.snap['postId'].toString(),
+                    ),
                   ),
                 ),
               ),
@@ -295,7 +298,9 @@ class _PostCardState extends State<PostCard> {
                     padding: const EdgeInsets.symmetric(vertical: 4),
                   ),
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => Container(),
+                    builder: (context) => CommentsScreen(
+                      postId: widget.snap['postId'].toString(),
+                    ),
                   )),
                 ),
                 Container(

@@ -5,15 +5,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:insta/resources/storage_methods.dart';
 
-class AuthMethods {
+enum Status { uninitialized, authenticated, authenticating, unauthenticated }
+
+class AuthMethods with ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  Status _status = Status.uninitialized;
 
   // get user detals
   Future<model.User> getUserDetails() async {
+    print('getUserDetailsへ');
     User currentUser = _auth.currentUser!;
+
     DocumentSnapshot documentSnapshot =
         await _firestore.collection('users').doc(currentUser.uid).get();
+    print(documentSnapshot);
+    if (documentSnapshot == null) {
+      print('documentSnapshotはnullです');
+    }
     return model.User.fromSnap(documentSnapshot);
   }
 
@@ -51,6 +60,8 @@ class AuthMethods {
           followers: [],
           following: [],
         );
+
+        print(email);
 
         // adding user in our database
         await _firestore

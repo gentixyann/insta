@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -52,16 +53,22 @@ class MyApp extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.active) {
               // Checking if the snapshot has any data or not
               if (snapshot.hasData) {
-                // if snapshot has data which means user is logged in then we check the width of screen and accordingly display the screen layout
+                // User が null でなない、つまりサインイン済みのホーム画面へ
+                print('ResponsiveLayoutへ');
+                print(snapshot);
+                // return LoginScreen();
                 return const ResponsiveLayout(
                   mobileScreenLayout: MobileScreenLayout(),
                   webScreenLayout: WebScreenLayout(),
                 );
-                // return LoginScreen();
               } else if (snapshot.hasError) {
+                // Userに null 以外のエラーが含まれている場合はエラー表示
                 return Center(
                   child: Text('${snapshot.error}'),
                 );
+              } else {
+                // User が null である、つまり未サインインのサインイン画面へ
+                return LoginScreen();
               }
             }
             // means connection to future hasnt been made yet
@@ -74,6 +81,32 @@ class MyApp extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+}
+
+class SignInPage2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => const Scaffold(
+        body: Center(
+          child: Text('未サインイン時に表示するサインイン画面です。'),
+        ),
+      );
+}
+
+class SignInPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return LoginScreen();
+  }
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const ResponsiveLayout(
+      mobileScreenLayout: MobileScreenLayout(),
+      webScreenLayout: WebScreenLayout(),
     );
   }
 }

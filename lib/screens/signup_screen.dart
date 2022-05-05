@@ -96,7 +96,7 @@ class _SignupScreenState extends State<SignupScreen> {
               SvgPicture.asset(
                 'assets/ic_instagram.svg',
                 color: primaryColor,
-                height: 64,
+                height: 30,
               ),
               const SizedBox(height: 64),
               Stack(
@@ -121,29 +121,29 @@ class _SignupScreenState extends State<SignupScreen> {
                       ))
                 ],
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 10),
               TextFieldInput(
                   textEditingController: _usernameController,
                   hintText: 'Enter your username',
                   textInputType: TextInputType.text),
-              const SizedBox(height: 24),
+              const SizedBox(height: 20),
               TextFieldInput(
                   textEditingController: _emailController,
                   hintText: 'Enter your email',
                   textInputType: TextInputType.emailAddress),
-              const SizedBox(height: 24),
+              const SizedBox(height: 20),
               TextFieldInput(
                 textEditingController: _passwordController,
                 hintText: 'Enter your password',
                 textInputType: TextInputType.visiblePassword,
                 isPass: true,
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 20),
               TextFieldInput(
                   textEditingController: _bioController,
                   hintText: 'Enter your bio',
                   textInputType: TextInputType.text),
-              const SizedBox(height: 24),
+              const SizedBox(height: 20),
               InkWell(
                 child: Container(
                   child: !_isLoading
@@ -163,7 +163,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
                 onTap: signUpUser,
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 10),
               Flexible(
                 child: Container(),
                 flex: 2,
